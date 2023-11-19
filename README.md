@@ -11,7 +11,7 @@
 | first_name         | string | null: false |
 | last_kananame      | string | null: false |
 | first_kananame     | string | null: false |
-| birthday           | data   | null: false |
+| birthday           | date   | null: false |
 
 
 ### Association
@@ -29,9 +29,9 @@
 | category_id        | integer    | null: false |
 | condition_id       | integer    | null: false |
 | shipping_fee_id    | integer    | null: false |
-| origin_region_id   | integer    | null: false |
-| shipping_days_id   | integer    | null: false |
-| sales_price        | decimal    | null: false |
+| prefecture_id      | integer    | null: false |
+| shipping_day_id    | integer    | null: false |
+| sales_price        | integer    | null: false |
 
 
 ### Association
@@ -55,9 +55,9 @@
 
 | Column        | Type       | Options                        |
 | -------       | ---------- | ------------------------------ |
-| record_id     | references | null: false, foreign_key: true |
+| record        | references | null: false, foreign_key: true |
 | postal_code   | string     | null: false |
-| prefecture    | integer    | null: false |
+| prefecture_id | integer    | null: false |
 | city          | string     | null: false |
 | street_address| string     | null: false |
 | building_name | string     |
