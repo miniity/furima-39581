@@ -51,7 +51,7 @@
 -  belongs_to :product
 -  has_one :address
 
-## adresss テーブル
+## addresses テーブル
 
 | Column        | Type       | Options                        |
 | -------       | ---------- | ------------------------------ |
