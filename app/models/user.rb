@@ -8,11 +8,10 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }, format: { with: /\A(?=.*[a-zA-Z])(?=.*[0-9])\z/ }
+  validates :password, presence: true, length: { minimum: 6 }, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)\w*\z/ }
   validates :first_name, presence: true, format: { with: /\A[^ -~｡-ﾟ]+\z/ }
   validates :last_name, presence: true, format: { with: /\A[^ -~｡-ﾟ]+\z/ }
   validates :first_kananame, presence: true, format: { with: /\A[^ -~｡-ﾟ]+\z/ }
   validates :last_kananame, presence: true, format: { with: /\A[^ -~｡-ﾟ]+\z/ }
   validates :birthday, presence: true
-
 end
