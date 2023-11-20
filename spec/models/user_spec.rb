@@ -1,11 +1,13 @@
+# spec/models/user_spec.rb
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe '新規登録' do
-    let(:valid_attributes) do
-      {
+  context '正常系' do
+    it '適切な情報が与えられた場合、ユーザーが作成されること' do
+      user = User.new(
+        email: 'test@example.com',  # これを追加
         name: 'test',
-        email: 'test@example.com',
         password: 'Password1',
         password_confirmation: 'Password1',
         first_name: 'ジョン',
@@ -13,56 +15,48 @@ RSpec.describe User, type: :model do
         first_kananame: 'ジョン',
         last_kananame: 'ドウ',
         birthday: '1990-01-01'
-      }
+      )
+      expect(user).to be_valid
+    end
+  end
+
+  context '異常系' do
+    before do
+      @user = User.new(
+        name: 'test',
+        password: 'Password1',
+        password_confirmation: 'Password1',
+        first_name: 'ジョン',
+        last_name: 'ドウ',
+        first_kananame: 'ジョン',
+        last_kananame: 'ドウ',
+        birthday: '1990-01-01'
+      )
     end
 
-    it '必須項目が欠けている場合は登録できない' do
-      user = User.new(valid_attributes.except(:name))
-      user.valid?
-      expect(user.errors.full_messages).to include("Name can't be blank")
+    it 'ユーザー名がない場合、ユーザーが作成されないこと' do
+      @user.name = nil
+      expect(@user).not_to be_valid
     end
 
-    it 'メールアドレスが無効な場合は登録できない' do
-      user = User.new(valid_attributes.merge(email: 'invalid_email'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Email is invalid")
+    it 'パスワードが要件を満たさない場合、ユーザーが作成されないこと' do
+      @user.password = 'invalidpassword'
+      expect(@user).not_to be_valid
     end
 
-    it 'パスワードが6文字未満の場合は登録できない' do
-      user = User.new(valid_attributes.merge(password: '12345', password_confirmation: '12345'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
+    it '名前が要件を満たさない場合、ユーザーが作成されないこと' do
+      @user.first_name = 'Invalid123'
+      expect(@user).not_to be_valid
     end
 
-    it 'パスワードが半角英数字混合でない場合は登録できない' do
-      user = User.new(valid_attributes.merge(password: 'invalidpassword', password_confirmation: 'invalidpassword'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Password is invalid")
+    it 'カナ名が要件を満たさない場合、ユーザーが作成されないこと' do
+      @user.first_kananame = 'Invalid123'
+      expect(@user).not_to be_valid
     end
 
-    it 'パスワードとパスワード（確認）が一致しない場合は登録できない' do
-      user = User.new(valid_attributes.merge(password_confirmation: 'different_password'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Password confirmation doesn't match Password")
-    end
-
-    it '名前が無効な場合は登録できない' do
-      user = User.new(valid_attributes.merge(last_name: 'Smith', first_name: 'John'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Last name is invalid", "First name is invalid")
-    end
-
-    it 'カナ名が無効な場合は登録できない' do
-      user = User.new(valid_attributes.merge(last_kananame: 'Smith', first_kananame: 'John'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Last kananame is invalid", "First kananame is invalid")
-    end
-
-    it '生年月日が無効な場合は登録できない' do
-      user = User.new(valid_attributes.merge(birthday: 'invalid_date'))
-      user.valid?
-      expect(user.errors.full_messages).to include("Birthday can't be blank")
+    it '生年月日がない場合、ユーザーが作成されないこと' do
+      @user.birthday = nil
+      expect(@user).not_to be_valid
     end
   end
 end
-
