@@ -27,4 +27,12 @@ class Item < ApplicationRecord
   validates :shipping_fee_id, numericality: { other_than: 1 }
 
   belongs_to :user
+
+  def sold_out?
+    # 売り切れのロジックを追加する
+    # 例えば、quantityがゼロの場合にtrueを返すと仮定していますが、
+    # 実際のアプリケーションのロジックに合わせて変更してください。
+    quantity.zero?
+  end
+
 end
