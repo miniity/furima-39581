@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :new, :create]
+  before_action :authenticate_user!, except: [:index, :new]
   before_action :move_to_index, except: [:index]
 #  before_action :set_item, only: [:show, :edit, :update, :destroy]
 #  before_action :check_user, only: [:edit, :update, :destroy]
@@ -52,12 +52,6 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:image, :product_name, :product_description, :category_id, :condition_id, :shipping_fee_id,
                                  :prefecture_id, :shipping_day_id, :sales_price)
-  end
-
-  def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
   end
 
 #  def check_user
