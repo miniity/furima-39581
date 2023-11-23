@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :new]
-  before_action :move_to_index, except: [:index]
+  before_action :authenticate_user!, except: [:index, :new, :show]
 #  before_action :set_item, only: [:show, :edit, :update, :destroy]
 #  before_action :check_user, only: [:edit, :update, :destroy]
 
@@ -43,9 +42,9 @@ class ItemsController < ApplicationController
 #    @item = Item.find(params[:id])
 #  end
 
-#  def show
-#    @item = Item.find(params[:id])
-#  end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   private
 
@@ -61,7 +60,7 @@ class ItemsController < ApplicationController
 #    end
 #  end
 
-#  def set_item
-#   @item = Item.find(params[:id])
-#  end
+  def set_item
+   @item = Item.find(params[:id])
+  end
 end
