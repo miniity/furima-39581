@@ -11,13 +11,14 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item = current_user.items.build(item_params)
-
+    @item.user_id = current_user.id
     if @item.save
       redirect_to root_path
     else
-      render 'new'
-    end
+      puts "Form Data:"
+      puts item_params.inspect
+      render 'new', status: :unprocessable_entity
+    end    
   end
 
   private
