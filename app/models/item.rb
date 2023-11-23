@@ -17,7 +17,7 @@ class Item < ApplicationRecord
   validates :prefecture_id, presence: true
   validates :shipping_day_id, presence: true
   validates :sales_price, presence: true, numericality: { only_integer: true }
-  validates :sales_price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  validates :sales_price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
   # ジャンルの選択が「---」の時は保存できないようにする
   validates :category_id, numericality: { other_than: 1 }
@@ -34,5 +34,4 @@ class Item < ApplicationRecord
     # 実際のアプリケーションのロジックに合わせて変更してください。
     quantity.zero?
   end
-
 end
