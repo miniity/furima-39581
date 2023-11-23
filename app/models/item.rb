@@ -5,7 +5,7 @@ class Item < ApplicationRecord
   belongs_to :category
   belongs_to :condition
   belongs_to :prefecture
-  belongs_to :shipping_day
+  belongs_to :shipping_day, class_name: 'ShippingDay', foreign_key: 'shipping_day_id'
   belongs_to :shipping_fee
 
   validates :image, presence: true
