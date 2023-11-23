@@ -26,4 +26,6 @@ class Item < ApplicationRecord
   validates :shipping_day_id, numericality: { other_than: 1 } 
   validates :shipping_fee_id, numericality: { other_than: 1 } 
 
+  belongs_to :user
+
 end
