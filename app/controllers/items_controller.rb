@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :new, :create]
-  before_action :move_to_index, except: [:index, :show]
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :check_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :new, :create]
+  before_action :move_to_index, except: [:index]
+#  before_action :set_item, only: [:show, :edit, :update, :destroy]
+#  before_action :check_user, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.all
+    @items = Item.order(created_at: :desc)
   end
 
   def new
@@ -24,28 +24,28 @@ class ItemsController < ApplicationController
     end    
   end
 
-  def destroy
-    item = Item.find(params[:id])
-    item.destroy
-    redirect_to root_path
-  end
+#  def destroy
+#    item = Item.find(params[:id])
+#    item.destroy
+#    redirect_to root_path
+#  end
 
-  def update
-    @item = Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to item_path(@item)
-    else
-      render 'edit'
-    end
-  end
+#  def update
+#    @item = Item.find(params[:id])
+#    if @item.update(item_params)
+#      redirect_to item_path(@item)
+#    else
+#      render 'edit'
+#    end
+#  end
 
-  def edit
-    @item = Item.find(params[:id])
-  end
+#  def edit
+#    @item = Item.find(params[:id])
+#  end
 
-  def show
-    @item = Item.find(params[:id])
-  end
+#  def show
+#    @item = Item.find(params[:id])
+#  end
 
   private
 
@@ -60,14 +60,14 @@ class ItemsController < ApplicationController
     end
   end
 
-  def check_user
+#  def check_user
     # ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
-    unless current_user == @item.user
-      redirect_to root_path
-    end
-  end
+#    unless current_user == @item.user
+#      redirect_to root_path
+#    end
+#  end
 
-  def set_item
-   @item = Item.find(params[:id])
-  end
+#  def set_item
+#   @item = Item.find(params[:id])
+#  end
 end
