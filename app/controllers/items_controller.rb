@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
   #  end
 
   def edit
-    @item
+  end
 
   def update
     if @item.update(item_params)
@@ -43,7 +43,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item
   end
 
   private
@@ -71,4 +70,5 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
 end
