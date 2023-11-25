@@ -31,13 +31,12 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-
-    @item.image.attach(params[:item][:image]) if params[:item][:image].present? && @item.image != params[:item][:image]
-
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
-      render :edit
+      puts 'Form Data:'
+      puts item_params.inspect
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -57,11 +56,19 @@ class ItemsController < ApplicationController
   end
 
   def check_user
-    #   ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
-    return if current_user == @item.user
-
-    redirect_to root_path
+    @item = Item.find(params[:id])
+  
+    if user_signed_in?
+      if current_user == @item.user
+        return
+      else
+        redirect_to root_path
+      end
+    else
+        redirect_to root_path
+    end
   end
+  
 
   def set_item
     @item = Item.find(params[:id])
