@@ -29,23 +29,21 @@ class ItemsController < ApplicationController
   #    redirect_to root_path
   #  end
 
+  def edit
+    @item
+
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
       puts 'Form Data:'
       puts item_params.inspect
-      render 'new', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_entity
     end
   end
 
-  def edit
-    @item = Item.find(params[:id])
-  end
-
   def show
-    @item = Item.find(params[:id])
+    @item
   end
 
   private
