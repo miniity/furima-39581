@@ -22,7 +22,6 @@ class ItemsController < ApplicationController
       render 'new', status: :unprocessable_entity
     end
   end
-  
 
   #  def destroy
   #    item = Item.find(params[:id])
@@ -30,23 +29,21 @@ class ItemsController < ApplicationController
   #    redirect_to root_path
   #  end
 
-    def update
-      @item = Item.find(params[:id])
-    
-      if params[:item][:image].present? && @item.image != params[:item][:image]
-        @item.image.attach(params[:item][:image])
-      end
-    
-      if @item.update(item_params)
-        redirect_to item_path(@item)
-      else
-        render :edit
-      end
+  def update
+    @item = Item.find(params[:id])
+
+    @item.image.attach(params[:item][:image]) if params[:item][:image].present? && @item.image != params[:item][:image]
+
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
     end
-    
-    def edit
-      @item = Item.find(params[:id])
-    end
+  end
+
+  def edit
+    @item = Item.find(params[:id])
+  end
 
   def show
     @item = Item.find(params[:id])
@@ -59,12 +56,12 @@ class ItemsController < ApplicationController
                                  :prefecture_id, :shipping_day_id, :sales_price)
   end
 
-    def check_user
-#   ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
-      unless current_user == @item.user
-        redirect_to root_path
-      end
-    end
+  def check_user
+    #   ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
+    return if current_user == @item.user
+
+    redirect_to root_path
+  end
 
   def set_item
     @item = Item.find(params[:id])
