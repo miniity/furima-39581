@@ -32,13 +32,18 @@ class ItemsController < ApplicationController
 
     def update
       @item = Item.find(params[:id])
+    
+      if params[:item][:image].present? && @item.image != params[:item][:image]
+        @item.image.attach(params[:item][:image])
+      end
+    
       if @item.update(item_params)
         redirect_to item_path(@item)
       else
-        render 'edit'
+        render :edit
       end
     end
-
+    
     def edit
       @item = Item.find(params[:id])
     end
