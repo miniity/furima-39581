@@ -17,7 +17,7 @@
 ### Association
 
 - has_many :items
-- has_many :records
+- has_many :orders
 
 ##  items テーブル
 
@@ -38,7 +38,7 @@
 
 -  belongs_to :user
 
-## records テーブル
+## orders テーブル
 
 | Column     | Type       | Options                        |
 | ------     | ---------- | ------------------------------ |
@@ -55,7 +55,7 @@
 
 | Column        | Type       | Options                        |
 | -------       | ---------- | ------------------------------ |
-| record        | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 | postal_code   | string     | null: false |
 | prefecture_id | integer    | null: false |
 | city          | string     | null: false |
@@ -65,4 +65,4 @@
 
 ### Association
 
-- belongs_to :record
+- belongs_to :order
