@@ -53,8 +53,6 @@ class ItemsController < ApplicationController
   end
 
   def check_user
-    @item = Item.find(params[:id])
-  
     if user_signed_in?
       if current_user == @item.user
         return
