@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
   end
 
     def check_user
-   ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
+#   ログインユーザーと編集対象のプロトタイプのユーザーが一致しない場合、トップページにリダイレクト
       unless current_user == @item.user
         redirect_to root_path
       end
