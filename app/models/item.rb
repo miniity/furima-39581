@@ -28,6 +28,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
 
+  
   def sold_out?
     # 売り切れのロジックを追加する
     # 例えば、quantityがゼロの場合にtrueを返すと仮定していますが、
