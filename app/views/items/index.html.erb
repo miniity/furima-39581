@@ -133,7 +133,7 @@
       <%= link_to item_path(item) do %>
       <div class='item-img-content'>
         <%= image_tag item.image, class: "item-img" %>
-        <% if @user_item %>
+        <% if item.sold_out? %>
         <div class='sold-out'>
           <span>Sold Out!!</span>
         </div>

@@ -42,10 +42,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_23_220554) do
   create_table "addresses", charset: "utf8", force: :cascade do |t|
     t.string "postal_code", null: false
     t.integer "prefecture_id", null: false
-    t.string "city"
-    t.string "street_address"
-    t.string "building_name"
-    t.string "phone_number"
+    t.string "city", null: false
+    t.string "street_address", null: false
+    t.string "building_name", null: false
+    t.string "phone_number", null: false
     t.bigint "order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

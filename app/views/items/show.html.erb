@@ -8,7 +8,7 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image, class: "item-box-img" %>
-       <% if @user_item %>
+       <% if @item.sold_out? %>
         <div class="sold-out">
           <span>Sold Out!!</span>
         </div>
@@ -21,7 +21,6 @@
       <span class="item-postage">
         <%= @item.shipping_fee.name %>
       </span>
-
 </div>
 
     <% if user_signed_in? %>
