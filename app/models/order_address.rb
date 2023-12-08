@@ -20,3 +20,4 @@ class OrderAddress
   end
 
 end
+

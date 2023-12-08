@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   attr_accessor :token
-  before_action :authenticate_user!, only: [:create]
-  before_action :check_seller, only: [:create]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :check_seller, only: [:index, :create]
 
 
   def index
@@ -34,11 +34,19 @@ class OrdersController < ApplicationController
   private
   def check_seller
     item = Item.find(params[:item_id])
-    if user_signed_in? && current_user == @item.user && @item.sold?
-    redirect_to root_path
+
+    unless user_signed_in?
+      redirect_to new_user_session_path
+      return
+    end
+
+    if current_user == item.user || item.sold?
+      redirect_to root_path
+      return
+    else
+      return true
     end
   end
-
 
   def order_params
     params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
