@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.sold?
+    if @item.sold_out?
       redirect_to root_path
     else
       render 'edit'
