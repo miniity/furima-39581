@@ -24,13 +24,18 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = Item.find(params[:id])
+    item = Item.find(params[:item_id])
     item.destroy
     redirect_to root_path
   end
 
   def edit
-  end
+    if @item.sold_out?
+      redirect_to root_path
+    else
+      render 'edit'
+    end
+  end 
 
   def update
     if @item.update(item_params)
