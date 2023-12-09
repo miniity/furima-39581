@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
       return
     end
 
-    if current_user == item.user || item.sold?
+    if current_user == item.user || item.sold_out?
       redirect_to root_path
     end
   end
