@@ -17,4 +17,8 @@ window.addEventListener('turbo:load', () => {
       profitOutput.innerHTML = "";
     }
   });
+
+  itemPriceInput.addEventListener("change", () => {
+  });
+  
 });
